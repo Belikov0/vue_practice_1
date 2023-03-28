@@ -1,7 +1,23 @@
 <script setup>
-    import {ref} from 'vue'
+    import {ref, reactive} from 'vue'
+
+    import TabItem from '../components/TabItem.vue';
     //创建一个变量记录选项卡的状态
     const curr = ref(0)
+
+    const player = reactive({
+        name: "梅西",
+        ranking: 1,
+        imgPath: "/images/messi.png",
+        hot: 433760,
+    })
+
+    const team = reactive({
+        name:"法国",
+        ranking: 1,
+        imgPath: "/images/法国.jpg",
+        hot:433760
+    })
 
 </script>
 
@@ -26,60 +42,13 @@
           <div v-show="curr === 0">
             <!-- 列表 -->
             <div class="tab-list">
-              <div class="tab-item">
-                <div class="photo"><img src="/images/messi.png" alt="messi"><span>1</span></div>
-                <div class="desc">
-                  <span class="name">梅西</span>
-                  <div class="hot-bar">
-                    <div class="inner">
-                      433760热度
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-item">
-                <div class="photo"><img src="/images/messi.png" alt="messi"><span>1</span></div>
-                <div class="desc">
-                  <span class="name">梅西</span>
-                  <div class="hot-bar">
-                    <div class="inner">
-                      433760热度
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-item">
-                <div class="photo"><img src="/images/messi.png" alt="messi"><span>1</span></div>
-                <div class="desc">
-                  <span class="name">梅西</span>
-                  <div class="hot-bar">
-                    <div class="inner">
-                      433760热度
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              
-              
+              <TabItem :item="player"></TabItem>         
             </div>
           </div>
           <!-- 球队信息 -->
           <div v-show="curr === 1">
-
             <div class="tab-list">
-              <div class="tab-item">
-                <div class="photo">
-                  <img src="/images/法国.jpg" alt="messi"><span>1</span></div>
-                <div class="desc">
-                  <span class="name">法国</span>
-                  <div class="hot-bar">
-                    <div class="inner">
-                      433760热度
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <TabItem :item="player"></TabItem> 
             </div>
           </div>
       </div>
@@ -115,6 +84,7 @@
 /* 为不是active的button设置hover的字体颜色 */
   .tab-button:not(.active):hover{
     color:rgb(187,35,2) ;
+    
   }
 
   .active{
@@ -131,67 +101,6 @@
     margin: 20px;
   }
 
-  .tab-item{
-    display: flex;
-    margin-bottom: 30px;
-  }
-
-  .photo{
-    width: 150px;
-    background-color: white;
-    border-radius: 25px;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .photo img{
-    width:100%;
-        /* 图片默认对齐方式为基线对齐，会出现一条缝 */
-    vertical-align: top;
-  }
-
-  .photo span{
-    position: absolute;
-    top:0;
-    left:0;
-    width: 50px;
-    height: 50px;
-    color: white;
-    background-color: orange;
-    font-size: 25px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom-right-radius: 20px;
-  }
-
-  .desc{
-    font-size: 30px;
-    color:white;
-    display: flex;
-    flex-flow: column;
-    flex:auto;
-    justify-content: space-evenly;
-    /* background-color: #bfa; */
-    margin-left: 30px;
-  }
-
-  .hot-bar{
-    background-color: #bfa;
-    border-radius: 20px;
-    background-color: rgb(3,37,103);
-    /* 缩进半个字的距离 */
-    text-indent: 0.5em;
-  }
-
-  .inner{
-    background-color: red;
-    border-radius: 20px;
-    background-image: linear-gradient(90deg,rgb(187,3,52) 50%, rgb(66,2,12));
-    /* 禁止文字换行，使文字能够溢出 */
-    white-space: nowrap;
-  }
 
 
 </style>
