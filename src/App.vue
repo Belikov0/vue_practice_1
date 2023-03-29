@@ -5,19 +5,64 @@
     //创建一个变量记录选项卡的状态
     const curr = ref(0)
 
-    const player = reactive({
+
+  // 假设获取到的数据还未排序，实际上在数据库操作时应该已经排序
+    const playersArr = [
+      {
         name: "梅西",
         ranking: 1,
         imgPath: "/images/messi.png",
         hot: 433760,
-    })
-
-    const team = reactive({
-        name:"法国",
+      },
+      {
+        name: "内马尔",
+        ranking: 3,
+        imgPath: "/images/neymar.png",
+        hot: 133760,
+      },
+      {
+        name: "C罗",
+        ranking: 2,
+        imgPath: "/images/ronaldo.png",
+        hot: 235760,
+      }
+    ].sort((a, b) => b.hot-a.hot)
+    
+    const teamsArr = [
+    {
+        name: "法国",
         ranking: 1,
         imgPath: "/images/法国.jpg",
-        hot:433760
-    })
+        hot: 433760,
+      },
+      {
+        name: "荷兰",
+        ranking: 3,
+        imgPath: "/images/荷兰.jpg",
+        hot: 133760,
+      },
+      {
+        name: "巴西",
+        ranking: 2,
+        imgPath: "/images/巴西.jpg",
+        hot: 235760,
+      }
+    ].sort((a, b) => b.hot-a.hot)
+
+    //设置排名
+    for (let i in playersArr){
+      console.log(typeof(i))
+      playersArr[i].ranking = parseInt(i)+1
+      teamsArr[i].ranking = parseInt(i)+1
+    }
+
+    //设置为响应式对象
+    const players = reactive(playersArr)
+    const teams = reactive(teamsArr)
+
+    //获取最大热度
+    const  playerMaxHot = players[0].hot
+    const teamMaxHot = teams[0].hot
 
 </script>
 
@@ -42,13 +87,14 @@
           <div v-show="curr === 0">
             <!-- 列表 -->
             <div class="tab-list">
-              <TabItem :item="player"></TabItem>         
+              <!-- v-for遍历数组 -->
+              <TabItem v-for="player in players" :item="player" :max-hot="playerMaxHot"></TabItem>        
             </div>
           </div>
           <!-- 球队信息 -->
           <div v-show="curr === 1">
             <div class="tab-list">
-              <TabItem :item="player"></TabItem> 
+              <TabItem v-for="team in teams" :item="team" :max-hot="teamMaxHot"></TabItem> 
             </div>
           </div>
       </div>

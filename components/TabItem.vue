@@ -16,9 +16,8 @@
 
     //宏指令
     //定义了属性item，item为属性名
-    const props = defineProps(["item"])
+    const props = defineProps(["item", "maxHot"])
     const item = props.item
-    console.log(props.item)
 </script>
 
 <template>
@@ -27,7 +26,7 @@
           :ranking="item.ranking"></Photo>
         <div class="desc">
             <span class="name">{{item.name}}</span>
-            <HotBar :hot="item.hot" :max-hot="item.hot"></HotBar>
+            <HotBar :hot="item.hot" :max-hot="props.maxHot"></HotBar>
         </div>
     </div>
 </template>
